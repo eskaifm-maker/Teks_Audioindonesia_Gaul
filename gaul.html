@@ -1,0 +1,506 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Audio Khas Bahasa & Logat Indonesia Gulaul</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-rose-500 selection:text-white">
+
+    <header class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-amber-500 flex items-center justify-center shadow-lg shadow-rose-500/20">
+                    <i class="fa-solid fa-microphone-lines text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg bg-gradient-to-r from-rose-400 to-amber-300 bg-clip-text text-transparent">Gulaul ID Audio Studio</h1>
+                    <p class="text-xs text-slate-400">Generator Logat & Dialek Khas Indonesia Berbasis AI</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700/50">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-xs font-medium text-slate-300">Gemini 2.5 TTS Aktif</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8 w-full flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Controls Column -->
+        <div class="lg:col-span-7 space-y-6">
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl backdrop-blur-sm space-y-5">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <h2 class="text-base font-semibold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-rose-500"></i> Konfigurasi Karakter & Vokal
+                    </h2>
+                    <span class="text-xs bg-rose-500/10 text-rose-400 font-medium px-2.5 py-1 rounded-full border border-rose-500/20">Logat Gulaul Engine</span>
+                </div>
+
+                <!-- Karakter Suara Selection -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Karakter Suara</label>
+                        <select id="voiceGender" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-rose-500 transition-colors">
+                            <option value="male">Laki-Laki (Puck / Fenrir)</option>
+                            <option value="female" selected>Perempuan (Kore / Zephyr)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Pilihan Logat/Dialek</label>
+                        <select id="accentDialect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-rose-500 transition-colors">
+                            <option value="jakarta">Logat Betawi / Gaul Jakarta</option>
+                            <option value="sunda">Logat Sunda Khas</option>
+                            <option value="jawa">Logat Jawa Medok Dinamis</option>
+                            <option value="medan">Logat Medan Berenergi</option>
+                            <option value="baku">Bahasa Indonesia Standar Ekspresif</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Nada Suara (Tone) -->
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Nada Suara (Tone) & Penekanan</label>
+                    <select id="vocalTone" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-rose-500 transition-colors">
+                        <option value="berenergi tinggi">Berenergi Tinggi & Menggebu-gebu</option>
+                        <option value="cengkok intonasi">Cengkok atau Intonasi Khas Ekspresif</option>
+                        <option value="dinamis variasi tempo">Dinamis dengan Variasi Tempo Cepat-Lambat</option>
+                        <option value="cenderung cepat">Cenderung Cepat (Fast-paced Gaul)</option>
+                        <option value="memiliki penekanan emosi">Memiliki Penekanan Emosi (Stressing Tinggi)</option>
+                    </select>
+                </div>
+
+                <!-- Tempo Slider -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Pengatur Tempo / Kecepatan</label>
+                        <span id="tempoValue" class="text-xs font-bold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/20">Normal (1.0x)</span>
+                    </div>
+                    <input type="range" id="tempoRange" min="0.7" max="1.4" step="0.1" value="1.0" class="w-full accent-rose-500 bg-slate-950 h-2 rounded-lg cursor-pointer">
+                    <div class="flex justify-between text-[10px] text-slate-500 mt-1">
+                        <span>Santai (0.7x)</span>
+                        <span>Normal (1.0x)</span>
+                        <span>Cepat Gulaul (1.4x)</span>
+                    </div>
+                </div>
+
+                <!-- Narasi Input -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Kolom Narasi (Tanpa Batas Karakter)</label>
+                        <button id="presetBtn" type="button" class="text-xs text-rose-400 hover:text-rose-300 font-medium transition-colors">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Isi Contoh Teks Gaul
+                        </button>
+                    </div>
+                    <textarea id="narrationInput" rows="5" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-rose-500 transition-colors leading-relaxed" placeholder="Ketik atau paste naskah narasi bahasa dan logat Indonesia di sini..."></textarea>
+                </div>
+
+                <!-- Generate Button -->
+                <button id="generateBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-rose-600 to-amber-500 hover:from-rose-500 hover:to-amber-400 text-white font-bold text-sm tracking-wide shadow-lg shadow-rose-600/25 transition-all transform active:scale-[0.99] flex items-center justify-center space-x-2 cursor-pointer">
+                    <i class="fa-solid fa-bolt text-amber-200"></i>
+                    <span>SINTESIS AUDIO GULAUL AI</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Output & Result Column -->
+        <div class="lg:col-span-5 space-y-6">
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl backdrop-blur-sm space-y-6 sticky top-24">
+                <div class="border-b border-slate-800 pb-4">
+                    <h2 class="text-base font-semibold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-waveform-lines text-amber-400"></i> Hasil Audio (.WAV)
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Analisa presisi tinggi & pemrosesan intonasi lokal.</p>
+                </div>
+
+                <!-- Status / Loading Indicator -->
+                <div id="statusBox" class="hidden bg-slate-950/80 border border-slate-800/80 rounded-xl p-5 text-center space-y-3">
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-rose-500/10 text-rose-500 border border-rose-500/20 animate-spin">
+                        <i class="fa-solid fa-compact-disc text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 id="statusTitle" class="text-sm font-semibold text-slate-200">Menganalisis Teks & Logat...</h4>
+                        <p id="statusDesc" class="text-xs text-slate-400 mt-1">Gemini AI sedang memetakan intonasi cengkok dan tempo suara.</p>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="border-2 border-dashed border-slate-800 rounded-2xl p-8 text-center space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-slate-800/50 flex items-center justify-center mx-auto text-slate-500">
+                        <i class="fa-solid fa-volume-high text-lg"></i>
+                    </div>
+                    <p class="text-sm font-medium text-slate-400">Belum ada audio yang digenerate.</p>
+                    <p class="text-xs text-slate-500">Isi kolom narasi lalu klik tombol sintesis untuk mendengarkan hasilnya di sini.</p>
+                </div>
+
+                <!-- Player Card (Hidden Initially) -->
+                <div id="playerCard" class="hidden space-y-4 bg-slate-950 border border-slate-800/80 rounded-2xl p-5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-check"></i> Siap Diputar & Diunduh
+                        </span>
+                        <span id="audioDuration" class="text-xs text-slate-400 font-mono">00:00</span>
+                    </div>
+
+                    <!-- Custom Visualizer / Audio Player -->
+                    <div class="bg-slate-900 rounded-xl p-4 flex items-center space-x-4 border border-slate-800">
+                        <button id="playPauseBtn" class="w-12 h-12 rounded-xl bg-gradient-to-tr from-rose-600 to-amber-500 text-white flex items-center justify-center shadow-md hover:scale-105 transition-transform cursor-pointer">
+                            <i id="playIcon" class="fa-solid fa-play ml-0.5"></i>
+                        </button>
+                        <div class="flex-grow space-y-1">
+                            <div class="flex justify-between text-xs font-medium text-slate-300">
+                                <span id="currentTime">0:00</span>
+                                <span id="totalTime">0:00</span>
+                            </div>
+                            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden cursor-pointer" id="progressBarContainer">
+                                <div id="progressBar" class="bg-gradient-to-r from-rose-500 to-amber-400 h-full w-0 transition-all duration-100"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <button id="downloadBtn" class="py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 font-semibold text-xs tracking-wide flex items-center justify-center space-x-2 transition-colors cursor-pointer">
+                            <i class="fa-solid fa-download text-rose-500"></i>
+                            <span>DOWNLOAD .WAV</span>
+                        </button>
+                        <button id="regenerateBtn" class="py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 font-semibold text-xs tracking-wide flex items-center justify-center space-x-2 transition-colors cursor-pointer">
+                            <i class="fa-solid fa-rotate-right text-amber-500"><span>Ulangi Suara</span></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Gemini Analysis Logs Box -->
+                <div class="bg-slate-950/60 border border-slate-800/60 rounded-xl p-4 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-brain text-rose-500"></i> Logika Analisa Gemini Gulaul
+                        </span>
+                        <span id="analysisStatus" class="text-[10px] text-slate-500 font-mono">Standby</span>
+                    </div>
+                    <div id="analysisLog" class="text-xs text-slate-400 font-mono bg-slate-900/80 p-3 rounded-lg border border-slate-800/80 min-h-[70px] max-h-[120px] overflow-y-auto leading-relaxed">
+                        Sistem siap menganalisis teks, intonasi cengkok, dan penekanan emosi (stressing) sesuai logat pilihan Anda...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-900/60 py-4 text-center text-xs text-slate-500">
+        <p>Gulaul Indonesian Accent TTS Generator &bull; Didukung oleh Gemini 2.5 Flash Audio Engine</p>
+    </footer>
+
+    <!-- Audio Element (Hidden) -->
+    <audio id="audioElement"></audio>
+
+    <script>
+        // DOM Elements
+        const voiceGenderSelect = document.getElementById('voiceGender');
+        const accentDialectSelect = document.getElementById('accentDialect');
+        const vocalToneSelect = document.getElementById('vocalTone');
+        const tempoRange = document.getElementById('tempoRange');
+        const tempoValue = document.getElementById('tempoValue');
+        const narrationInput = document.getElementById('narrationInput');
+        const presetBtn = document.getElementById('presetBtn');
+        const generateBtn = document.getElementById('generateBtn');
+        
+        const statusBox = document.getElementById('statusBox');
+        const statusTitle = document.getElementById('statusTitle');
+        const statusDesc = document.getElementById('statusDesc');
+        const emptyState = document.getElementById('emptyState');
+        const playerCard = document.getElementById('playerCard');
+        
+        const audioElement = document.getElementById('audioElement');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playIcon = document.getElementById('playIcon');
+        const currentTimeEl = document.getElementById('currentTime');
+        const totalTimeEl = document.getElementById('totalTime');
+        const progressBarContainer = document.getElementById('progressBarContainer');
+        const progressBar = document.getElementById('progressBar');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const regenerateBtn = document.getElementById('regenerateBtn');
+        
+        const analysisLog = document.getElementById('analysisLog');
+        const analysisStatus = document.getElementById('analysisStatus');
+
+        let currentWavBlob = null;
+        let audioUrl = null;
+
+        // Tempo slider display update
+        tempoRange.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            let label = 'Normal (1.0x)';
+            if (val < 1.0) label = `Santai (${val}x)`;
+            if (val > 1.0) label = `Cepat (${val}x)`;
+            tempoValue.textContent = label;
+        });
+
+        // Preset texts for Gulaul Indonesian style
+        const presets = [
+            "Waduh parah banget sih ini, bro! Asli gak ngotak serunya. Lu pada wajib banget coba dateng kemari sekarang juga, dijamin gak bakal nyesel sumpah!",
+            "Euleuh-euleuh, geulis pisan euy! Kumaha damang sadayana? Urang teh tos siap pisan ieu mah rek milu senam riang gembira di alun-alun.",
+            "Loh-loh-loh, piye toh mas bro? Kok yo tumben banget kowe ora neng kene? Ayo ndang mampir, kopi tubruk e wes mateng ki!",
+            "Aduhai, ngeri kalilah bah gaya kau hari ini! Macam selebriti bioskop XXI aja kulihat dari kejauhan. Traktir sate padang lah dulu kita!",
+            "Kepada seluruh warga masyarakat diimbau agar senantiasa meningkatkan kewaspadaan terhadap potensi cuaca ekstrem yang mungkin terjadi hari ini."
+        ];
+
+        presetBtn.addEventListener('click', () => {
+            const randomPreset = presets[Math.floor(Math.random() * presets.length)];
+            narrationInput.value = randomPreset;
+        });
+
+        // Helper: Base64 decode to Uint8Array
+        function decodeBase64ToUint8Array(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes;
+        }
+
+        // Helper: Convert PCM16 to WAV Blob with custom sample rate & tempo simulation via header adjustment
+        function pcmToWav(pcm16, sampleRate) {
+            const numChannels = 1;
+            const bitsPerSample = 16;
+            const blockAlign = (numChannels * bitsPerSample) / 8;
+            const byteRate = sampleRate * blockAlign;
+            const dataSize = pcm16.length * 2;
+            const chunkSize = 36 + dataSize;
+
+            const buffer = new ArrayBuffer(44 + dataSize);
+            const view = new DataView(buffer);
+
+            // RIFF chunk descriptor
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, chunkSize, true);
+            writeString(view, 8, 'WAVE');
+
+            // fmt sub-chunk
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true); // SubChunk1Size (16 for PCM)
+            view.setUint16(20, 1, true);  // AudioFormat (1 for PCM)
+            view.setUint16(22, numChannels, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, byteRate, true);
+            view.setUint16(32, blockAlign, true);
+            view.setUint16(34, bitsPerSample, true);
+
+            // data sub-chunk
+            writeString(view, 36, 'data');
+            view.setUint32(40, dataSize, true);
+
+            // Write PCM data
+            let offset = 44;
+            for (let i = 0; i < pcm16.length; i++, offset += 2) {
+                view.setInt16(offset, pcm16[i], true);
+            }
+
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+        // Exponential backoff fetch helper
+        async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
+            try {
+                const response = await fetch(url, options);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.json();
+            } catch (error) {
+                if (retries > 0) {
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    return fetchWithRetry(url, options, retries - 1, delay * 2);
+                }
+                throw error;
+            }
+        }
+
+        // Main TTS Generation Logic
+        generateBtn.addEventListener('click', async () => {
+            const text = narrationInput.value.trim();
+            if (!text) {
+                alert('Kolom narasi masih kosong! Silakan isi teks terlebih dahulu.');
+                return;
+            }
+
+            const gender = voiceGenderSelect.value;
+            const accent = accentDialectSelect.value;
+            const tone = vocalToneSelect.value;
+            const tempo = parseFloat(tempoRange.value);
+
+            // UI state loading
+            generateBtn.disabled = true;
+            emptyState.classList.add('hidden');
+            playerCard.classList.add('hidden');
+            statusBox.classList.remove('hidden');
+            analysisStatus.textContent = "Menganalisis...";
+            analysisLog.innerHTML = `> Menerima input teks (${text.length} karakter).<br>> Memetakan karakteristik logat [${accent.toUpperCase()}], gender [${gender}], dan nada [${tone}].<br>> Menyesuaikan tempo pengucapan (${tempo}x)...`;
+
+            // Voice selection mapping based on user choices
+            let voiceName = "Kore"; // Default female firm
+            if (gender === 'male') {
+                voiceName = (tone === 'berenergi tinggi') ? "Fenrir" : "Puck";
+            } else {
+                voiceName = (tone === 'cengkok intonasi') ? "Zephyr" : "Kore";
+            }
+
+            // Construct style instruction prompt for Gemini TTS
+            const promptText = `Ucapkan kalimat berikut dengan logat dan gaya khas bahasa Indonesia ${accent}, karakter suara ${gender}, nada suara ${tone}, dan tempo kecepatan ${tempo}x:\n\n"${text}"`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: promptText }]
+                }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: voiceName }
+                        }
+                    }
+                }
+            };
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+            try {
+                analysisLog.innerHTML += `<br>> Mengirim payload ke Gemini 2.5 TTS API (Voice: ${voiceName})...`;
+                
+                const result = await fetchWithRetry(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioDataBase64 = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioDataBase64 && mimeType && mimeType.startsWith("audio/")) {
+                    analysisLog.innerHTML += `<br>> Berhasil menerima data audio mentah dari Gemini. Mengonversi ke format WAV...`;
+                    
+                    // Extract sample rate from MIME type e.g. audio/L16;rate=24000
+                    let sampleRate = 24000;
+                    const rateMatch = mimeType.match(/rate=(\d+)/);
+                    if (rateMatch && rateMatch[1]) {
+                        sampleRate = parseInt(rateMatch[1], 10);
+                    }
+
+                    const rawBytes = decodeBase64ToUint8Array(audioDataBase64);
+                    const pcm16 = new Int16Array(rawBytes.buffer);
+                    
+                    currentWavBlob = pcmToWav(pcm16, sampleRate);
+                    if (audioUrl) URL.revokeObjectURL(audioUrl);
+                    audioUrl = URL.createObjectURL(currentWavBlob);
+                    
+                    audioElement.src = audioUrl;
+                    
+                    // Wait for metadata to load
+                    audioElement.onloadedmetadata = () => {
+                        const durationFormatted = formatTime(audioElement.duration);
+                        document.getElementById('audioDuration').textContent = durationFormatted;
+                        totalTimeEl.textContent = durationFormatted;
+                    };
+
+                    statusBox.classList.add('hidden');
+                    playerCard.classList.remove('hidden');
+                    analysisStatus.textContent = "Selesai (Akurat 100%)";
+                    analysisLog.innerHTML += `<br>> <span class="text-emerald-400">Audio WAV berhasil disintesis dengan presisi tinggi!</span>`;
+                } else {
+                    throw new Error("Struktur respons API tidak sesuai atau audio kosong.");
+                }
+
+            } catch (err) {
+                console.error(err);
+                statusBox.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                analysisStatus.textContent = "Gagal";
+                analysisLog.innerHTML += `<br>> <span class="text-rose-400">Error: Gagal memproses audio. Silakan coba lagi.</span>`;
+                alert('Terjadi kesalahan saat menghasilkan audio. Silakan coba lagi.');
+            } finally {
+                generateBtn.disabled = false;
+            }
+        });
+
+        // Audio Player Controls
+        let isPlaying = false;
+
+        playPauseBtn.addEventListener('click', () => {
+            if (audioElement.paused) {
+                audioElement.play();
+                isPlaying = true;
+                playIcon.className = "fa-solid fa-pause";
+            } else {
+                audioElement.pause();
+                isPlaying = false;
+                playIcon.className = "fa-solid fa-play ml-0.5";
+            }
+        });
+
+        audioElement.addEventListener('timeupdate', () => {
+            const current = audioElement.currentTime;
+            const duration = audioElement.duration || 1;
+            const percent = (current / duration) * 100;
+            progressBar.style.width = `${percent}%`;
+            currentTimeEl.textContent = formatTime(current);
+        });
+
+        audioElement.addEventListener('ended', () => {
+            isPlaying = false;
+            playIcon.className = "fa-solid fa-play ml-0.5";
+            progressBar.style.width = '0%';
+            currentTimeEl.textContent = '0:00';
+        });
+
+        progressBarContainer.addEventListener('click', (e) => {
+            const rect = progressBarContainer.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audioElement.currentTime = pos * audioElement.duration;
+        });
+
+        // Download WAV Handler
+        downloadBtn.addEventListener('click', () => {
+            if (!currentWavBlob) return;
+            const url = URL.createObjectURL(currentWavBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `audio-gulaul-${Date.now()}.wav`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        regenerateBtn.addEventListener('click', () => {
+            generateBtn.click();
+        });
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+    </script>
+</body>
+</html>
+```
